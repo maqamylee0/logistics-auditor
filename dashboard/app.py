@@ -214,7 +214,7 @@ st.markdown(
     """
 - **Late orders get much worse reviews.** On time orders average about 4.3 stars, late orders about 3.0, and super late orders about 1.7.
 - **It is a regional problem, not a nationwide one.** The Northeast has about double the late rate of the South, and Alagoas, Maranhão and Sergipe are the worst states.
-- **Remote does not always mean worse.** The far North has few late orders, likely because its delivery estimates are long.
+- **Remote states are hit harder, but distance is not the whole story.** Every Northeast state and the North as a whole are above average, yet far-off Amazonas and Rondônia are among the best states.
 - **Most estimates are too long, not too short.** We promise about 23 days and deliver in about 12, but late orders spiked in early 2018 and reviews dropped at the same time.
 """
 )
