@@ -9156,7 +9156,13 @@ If most bars sit far to the right of zero, our estimates are too long, not too s
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Average days we promised:   23.4
 Average days it really took: 12.1
-Median Days_Difference:      12.0
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Median Days_Difference:      12.0
 </pre>
 </div>
 </div>
@@ -10137,12 +10143,12 @@ month
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Step-9:-Save-files-for-the-dashboard">Step 9: Save files for the dashboard<a class="anchor-link" href="#Step-9:-Save-files-for-the-dashboard">¶</a></h2><p>We save clean tables as CSV files so we can load them into the dashboard tool.
-They go in the data/dashboard folder, which is not uploaded to GitHub.</p>
+<h2 id="Step-9:-Save-files-for-the-dashboard">Step 9: Save files for the dashboard<a class="anchor-link" href="#Step-9:-Save-files-for-the-dashboard">¶</a></h2><p>We save two small, clean files into the dashboard folder so the Streamlit app can use them.
+The orders file is compressed and only keeps the columns the dashboard needs.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b080aaa3">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=71945096">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10151,19 +10157,16 @@ They go in the data/dashboard folder, which is not uploaded to GitHub.</p>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s2">"data/dashboard"</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s2">"dashboard"</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">dashboard_cols</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"order_id"</span><span class="p">,</span> <span class="s2">"order_status"</span><span class="p">,</span> <span class="s2">"customer_state"</span><span class="p">,</span> <span class="s2">"customer_city"</span><span class="p">,</span>
-    <span class="s2">"order_purchase_timestamp"</span><span class="p">,</span> <span class="s2">"order_estimated_delivery_date"</span><span class="p">,</span> <span class="s2">"order_delivered_customer_date"</span><span class="p">,</span>
-    <span class="s2">"Days_Difference"</span><span class="p">,</span> <span class="s2">"Delay_Days"</span><span class="p">,</span> <span class="s2">"Delivery_Status"</span><span class="p">,</span> <span class="s2">"is_late"</span><span class="p">,</span> <span class="s2">"review_score"</span><span class="p">,</span> <span class="s2">"region"</span><span class="p">,</span> <span class="s2">"month"</span><span class="p">,</span>
+    <span class="s2">"customer_state"</span><span class="p">,</span> <span class="s2">"region"</span><span class="p">,</span> <span class="s2">"month"</span><span class="p">,</span> <span class="s2">"Delivery_Status"</span><span class="p">,</span>
+    <span class="s2">"is_late"</span><span class="p">,</span> <span class="s2">"Days_Difference"</span><span class="p">,</span> <span class="s2">"review_score"</span><span class="p">,</span>
 <span class="p">]</span>
-<span class="n">delivered</span><span class="p">[</span><span class="n">dashboard_cols</span><span class="p">]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"data/dashboard/orders.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">state_summary</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"data/dashboard/states.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">category_summary</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"data/dashboard/categories.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">monthly</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"data/dashboard/monthly.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">delivered</span><span class="p">[</span><span class="n">dashboard_cols</span><span class="p">]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"dashboard/orders.csv.gz"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">category_summary</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"dashboard/categories.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Saved 4 files for the dashboard."</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Saved"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">delivered</span><span class="p">),</span> <span class="s2">"orders and"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">category_summary</span><span class="p">),</span> <span class="s2">"categories for the dashboard."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -10176,7 +10179,7 @@ They go in the data/dashboard folder, which is not uploaded to GitHub.</p>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Saved 4 files for the dashboard.
+<pre>Saved 96470 orders and 32 categories for the dashboard.
 </pre>
 </div>
 </div>
@@ -10264,34 +10267,6 @@ Average review score:
 <li>The far North is not worse, even though it is remote. Its orders are few, and the estimates there are probably long enough to cover the slow trip.</li>
 <li>On average we promise 23 days but deliver in 12, so most estimates are too long, not too short. The real issue is a few regions and periods: in March 2018, 19% of orders were late, and review scores dropped in the same months.</li>
 </ul>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=c584564c-cae0-4d56-803d-d0fbac18f97c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=0edd2ab3-13ca-4de6-8d31-43f658bfad0b">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
 </div>
 </div>
 </div>
