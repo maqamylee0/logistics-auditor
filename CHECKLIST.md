@@ -20,6 +20,7 @@
 - [ ] Presentation link public (tested in incognito)
 - [ ] Notebook link public (tested in incognito)
 - [x] README sections A, B, C filled in
+- [x] Original instruction README removed and replaced with own documentation
 
 ## Submit
 - [ ] Submission form filled: https://forms.cloud.microsoft/e/CeQN2mCyUr
